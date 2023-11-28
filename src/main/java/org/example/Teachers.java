@@ -15,6 +15,16 @@ public class Teachers {
 
     private int age;
 
+    public Teachers() {
+
+    }
+
+    public Teachers(String name, int salary, int age) {
+        this.name = name;
+        this.salary = salary;
+        this.age = age;
+    }
+
     public int getId() {
         return id;
     }
@@ -45,5 +55,15 @@ public class Teachers {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Teachers{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", salary=" + salary +
+                ", age=" + age +
+                '}';
     }
 }

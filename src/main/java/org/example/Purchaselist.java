@@ -2,21 +2,39 @@ package org.example;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "purchaselist")
-public class Purchaselist {
+@IdClass(Purchaselist.class)
+public class Purchaselist implements Serializable {
+    @Id
     @Column(name = "student_name")
     private String studentName;
 
+    @Id
     @Column(name = "course_name")
     private String courseName;
 
+    @Id
+    @Column(name = "price")
     private int price;
 
+    @Id
     @Column(name = "subscription_date")
     private Timestamp subscriptionDate;
+
+    public Purchaselist() {
+
+    }
+
+    public Purchaselist(String studentName, String courseName, int price, Timestamp subscriptionDate) {
+        this.studentName = studentName;
+        this.courseName = courseName;
+        this.price = price;
+        this.subscriptionDate = subscriptionDate;
+    }
 
     public String getStudentName() {
         return studentName;
@@ -48,5 +66,15 @@ public class Purchaselist {
 
     public void setSubscriptionDate(Timestamp subscriptionDate) {
         this.subscriptionDate = subscriptionDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Purchaselist{" +
+                "studentName='" + studentName + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", price=" + price +
+                ", subscriptionDate=" + subscriptionDate +
+                '}';
     }
 }

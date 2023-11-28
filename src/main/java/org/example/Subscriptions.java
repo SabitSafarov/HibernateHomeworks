@@ -7,28 +7,32 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "subscriptions")
 public class Subscriptions {
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Students studentId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Courses courseId;
+    @EmbeddedId
+    private SubscriptionsKey id;
+
+    @Column(name = "student_id", insertable = false, updatable = false)
+    private int studentId;
+
+    @Column(name = "course_id", insertable = false, updatable = false)
+    private int courseId;
 
     @Column(name = "subscription_date")
     private Timestamp subscriptionDate;
 
-    public Students getStudentId() {
+    public int getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Students studentId) {
+    public void setStudentId(int studentId) {
         this.studentId = studentId;
     }
 
-    public Courses getCourseId() {
+    public int getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(Courses courseId) {
+    public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
@@ -38,5 +42,14 @@ public class Subscriptions {
 
     public void setSubscriptionDate(Timestamp subscriptionDate) {
         this.subscriptionDate = subscriptionDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Subscriptions{" +
+                "studentId=" + studentId +
+                ", courseId=" + courseId +
+                ", subscriptionDate=" + subscriptionDate +
+                '}';
     }
 }

@@ -14,15 +14,16 @@
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <!-- Echo the SQL to stdout -->
         <property name="show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
         <!-- Set the current session context -->
         <property name="current_session_context_class">thread</property>
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">validate</property>
 
         <mapping class="org.example.Courses"></mapping>
-<!--        <mapping class="org.example.Purchaselist"></mapping>-->
+        <mapping class="org.example.Purchaselist"></mapping>
         <mapping class="org.example.Students"></mapping>
-<!--        <mapping class="org.example.Subscriptions"></mapping>-->
+        <mapping class="org.example.Subscriptions"></mapping>
         <mapping class="org.example.Teachers"></mapping>
     </session-factory>
 </hibernate-configuration>

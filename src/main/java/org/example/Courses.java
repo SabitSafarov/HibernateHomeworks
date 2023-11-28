@@ -2,6 +2,8 @@ package org.example;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "courses")
 public class Courses {
@@ -23,13 +25,42 @@ public class Courses {
     @ManyToOne(cascade = CascadeType.ALL)
     private Teachers teacher;
 
-    @Column(name = "students_count")
+    @Column(name = "students_count", nullable = true)
     private int studentsCount;
 
     private int price;
 
     @Column(name = "price_per_hour")
     private float pricePerHour;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "subscriptions",
+            joinColumns = {@JoinColumn(name = "course_id")},
+            inverseJoinColumns = {@JoinColumn(name = "student_id")})
+    private List<Students> studentsList;
+
+    public Courses() {
+
+    }
+
+    public Courses(String name, int duration, CourseType type, String description, Teachers teacher, int studentsCount, int price, float pricePerHour) {
+        this.name = name;
+        this.duration = duration;
+        this.type = type;
+        this.description = description;
+        this.teacher = teacher;
+        this.studentsCount = studentsCount;
+        this.price = price;
+        this.pricePerHour = pricePerHour;
+    }
+
+    public List<Students> getStudentsList() {
+        return studentsList;
+    }
+
+    public void setStudentsList(List<Students> studentsList) {
+        this.studentsList = studentsList;
+    }
 
     public int getId() {
         return id;
@@ -101,5 +132,20 @@ public class Courses {
 
     public void setPricePerHour(float pricePerHour) {
         this.pricePerHour = pricePerHour;
+    }
+
+    @Override
+    public String toString() {
+        return "Courses{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", duration=" + duration +
+                ", type=" + type +
+                ", description='" + description + '\'' +
+                ", teacher=" + teacher +
+                ", studentsCount=" + studentsCount +
+                ", price=" + price +
+                ", pricePerHour=" + pricePerHour +
+                '}';
     }
 }
