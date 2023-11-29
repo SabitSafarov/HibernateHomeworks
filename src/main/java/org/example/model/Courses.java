@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 
 import jakarta.persistence.*;
 
@@ -22,7 +22,7 @@ public class Courses {
 
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Teachers teacher;
 
     @Column(name = "students_count", nullable = true)

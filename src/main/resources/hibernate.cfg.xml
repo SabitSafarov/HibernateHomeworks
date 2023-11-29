@@ -20,10 +20,10 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">validate</property>
 
-        <mapping class="org.example.Courses"></mapping>
-        <mapping class="org.example.Purchaselist"></mapping>
-        <mapping class="org.example.Students"></mapping>
-        <mapping class="org.example.Subscriptions"></mapping>
-        <mapping class="org.example.Teachers"></mapping>
+        <mapping class="org.example.model.Courses"></mapping>
+        <mapping class="org.example.model.Purchaselist"></mapping>
+        <mapping class="org.example.model.Students"></mapping>
+        <mapping class="org.example.model.Subscriptions"></mapping>
+        <mapping class="org.example.model.Teachers"></mapping>
     </session-factory>
 </hibernate-configuration>

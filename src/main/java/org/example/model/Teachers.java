@@ -1,6 +1,8 @@
-package org.example;
+package org.example.model;
 
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -15,6 +17,9 @@ public class Teachers {
 
     private int age;
 
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
+    private List<Courses> coursesList;
+
     public Teachers() {
 
     }
@@ -23,6 +28,14 @@ public class Teachers {
         this.name = name;
         this.salary = salary;
         this.age = age;
+    }
+
+    public List<Courses> getCoursesList() {
+        return coursesList;
+    }
+
+    public void setCoursesList(List<Courses> coursesList) {
+        this.coursesList = coursesList;
     }
 
     public int getId() {
