@@ -1,6 +1,7 @@
 package org.example.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 

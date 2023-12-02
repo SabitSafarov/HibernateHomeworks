@@ -25,15 +25,17 @@ public class Homework3 {
             // Task 1
             task1(session);
             // Task 2
-            task2(session);
+//            task2(session);
             // Task 3
-            task3(session);
+//            task3(session);
             // Task 4
-            task4(session);
+//            task4(session);
             // Task 5
-            task5(session);
+//            task5(session);
             // Task 6
-            task6(session);
+//            task6(session);
+
+            transaction.commit();
         }
     }
 

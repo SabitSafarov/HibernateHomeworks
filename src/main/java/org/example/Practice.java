@@ -1,9 +1,9 @@
 package org.example;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import org.example.model.Courses;
+import org.example.model.Students;
+import org.example.model.Teachers;
 import org.hibernate.PropertyAccessException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -104,14 +104,68 @@ public class Practice {
 //            session.remove(subscription);
 //----------------------------------------------------------------------------------------------------------------------
 
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-            CriteriaQuery<Courses> query = builder.createQuery(Courses.class);
-            Root<Courses> root = query.from(Courses.class);
-            query.select(root).where(builder.greaterThan(root.get("price"), 100000)).orderBy(builder.desc(root.get("price")));
-            List<Courses> courses = session.createQuery(query).setMaxResults(3).list();
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<Courses> query = builder.createQuery(Courses.class);
+//            Root<Courses> root = query.from(Courses.class);
+//            query.select(root).where(builder.greaterThan(root.get("price"), 100000)).orderBy(builder.desc(root.get("price")));
+//            List<Courses> courses = session.createQuery(query).setMaxResults(3).list();
+//
+//            for (Courses course : courses) {
+//                System.out.println(course.getTeacher().getName() + " - " + course.getName() + " - " + course.getPrice());
+//            }
+//----------------------------------------------------------------------------------------------------------------------
 
-            for (Courses course : courses) {
-                System.out.println(course.getTeacher().getName() + " - " + course.getName() + " - " + course.getPrice());
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<Courses> query = builder.createQuery(Courses.class);
+//            Root<Courses> root = query.from(Courses.class);
+////            query.select(root)
+////                    .orderBy(builder.asc(root.get("name")));
+////
+////            List<Courses> list = session.createQuery(query)
+////                    .setFirstResult(3)
+////                    .setMaxResults(10)
+////                    .list();
+//
+//            query.select(root).where(builder.like(root.get("name"), "%Java%"));
+//            List<Courses> list = session.createQuery(query).list();
+//
+//            list.forEach(courses -> System.out.println(courses.getName()));
+//----------------------------------------------------------------------------------------------------------------------
+
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<Double> query = builder.createQuery(Double.class);
+//            Root<Teachers> root = query.from(Teachers.class);
+//            query.select(builder.avg(root.get("age")));
+//            Double avg = session.createQuery(query).getSingleResult();
+//            System.out.println(avg);
+//----------------------------------------------------------------------------------------------------------------------
+
+//            CriteriaBuilder builder = session.getCriteriaBuilder();
+//            CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+//            Root<Courses> root = query.from(Courses.class);
+//            Join<Courses, Teachers> teachersJoin = root.join("teacher");
+//            query.multiselect(root, teachersJoin);
+//            List<Object[]> list = session.createQuery(query).list();
+//            for (Object[] objects : list) {
+//                Courses courses = (Courses) objects[0];
+//                Teachers teachers = (Teachers) objects[1];
+//                System.out.println(courses.getName() + " - " + teachers.getName());
+//            }
+//----------------------------------------------------------------------------------------------------------------------
+
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+            Root<Courses> root = query.from(Courses.class);
+
+            ListJoin<Courses, Students> studentsJoin = root.joinList("studentsList");
+            query.multiselect(root.get("name"), builder.count(studentsJoin)).groupBy(root.get("name"));
+
+            List<Object[]> list = session.createQuery(query).list();
+
+            for (Object[] objects : list) {
+                String name = (String) objects[0];
+                Long count = (Long) objects[1];
+                System.out.println(name + " - " + count);
             }
 
             transaction.commit();
